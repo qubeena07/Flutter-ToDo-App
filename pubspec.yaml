@@ -44,6 +44,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  toast_flutter: ^0.0.1
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:

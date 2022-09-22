@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/provider/todo_provider.dart';
+import 'package:todo_app/utils/validation_mixin.dart';
+import 'package:todo_app/widget/language_picker_widget.dart';
 
 import '../widget/change_theme_button_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,9 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController controller = TextEditingController();
-  // TextEditingController title = TextEditingController();
-
-  //final List<String> items = List.from(listItems);
 
   // final _myBox = Hive.box('listItems');
 
@@ -24,8 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     setState(() {});
     super.initState();
-    // TodoProvider().getTodoList();
-    // log(TodoProvider().getTodoList().toString());
   }
 
   void addItemToList(String task) {
@@ -36,17 +33,20 @@ class _HomeScreenState extends State<HomeScreen> {
     Provider.of<TodoProvider>(context, listen: false).removeTodo(index);
   }
 
+  void editItemToList(int key, String task) {
+    Provider.of<TodoProvider>(context, listen: false).editTodo(key, task);
+  }
+
   @override
   void dispose() {
     super.dispose();
     //controller.dispose();
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    // final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
-    //     ? 'DarkTheme'
-    //     : 'LightTheme';
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
               size: 30,
             )),
         actions: const [
+          LanguagePickerWidget(),
           ChangeThemeButtonWidget(),
         ],
       ),
@@ -81,6 +82,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 margin: const EdgeInsets.all(10),
                 child: ListTile(
+                  onTap: () {
+                    taskForm(
+                        task: todo.getTodoList.values.toList()[index],
+                        key: todo.getTodoList.keys.toList()[index],
+                        isEdit: true);
+                  },
                   trailing: IconButton(
                       onPressed: () {
                         showDialog(
@@ -114,9 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
             }));
       })),
       floatingActionButton: FloatingActionButton(
+        key: const Key("floatingButton"),
         backgroundColor: Colors.blue,
         onPressed: () {
-          taskForm();
+          taskForm(isEdit: false);
         },
         child: const Icon(Icons.add),
       ),
@@ -125,56 +133,77 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  taskForm() {
+  taskForm({String? task, required bool isEdit, int? key}) {
+    setState(() {
+      controller.clear();
+      isEdit ? controller.text = task.toString() : null;
+    });
     return showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                const Text(
-                  "Add your tasks",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  controller: controller,
-                  // maxLines: 5,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    filled: true,
-                    fillColor: Color.fromARGB(255, 90, 174, 244),
-                    hintText: "Enter task details",
+          return Form(
+            key: _formKey,
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.addTasks,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w700),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                        textStyle: const TextStyle(
-                          fontSize: 20,
-                        )),
-                    onPressed: () {
-                      // final key = Random().nextInt(1000000);
-                      addItemToList(controller.text);
-                      // log(Provider.of<TodoProvider>(context, listen: false)
-                      //     .getTodoList
-                      //     .toString());
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    key: const Key("taskDetails"),
+                    controller: controller,
+                    validator: (value) =>
+                        ValidationMixin().validateTask(value!),
+                    // (value) =>
+                    //     value!.isEmpty ? 'Please enter the task' : null,
+                    //initialValue: controller.,
 
-                      setState(() {
-                        controller.clear();
-                      });
-                    },
-                    child: const Text(
-                      "Add",
-                      style: TextStyle(fontSize: 18),
-                    ))
-              ],
+                    // maxLines: 5,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: const Color.fromARGB(255, 90, 174, 244),
+                      hintText: AppLocalizations.of(context)!.hintText,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                      key: const Key("addButton"),
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.blue,
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                          )),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          isEdit
+                              ? editItemToList(key!, controller.text)
+                              : addItemToList(controller.text);
+
+                          setState(() {
+                            controller.clear();
+                          });
+                        } else {
+                          print("please enter task");
+
+                          return;
+                        }
+                      },
+                      child: Text(
+                        isEdit ? "Edit" : "Add",
+                        // AppLocalizations.of(context)!.addButton,
+                        style: const TextStyle(fontSize: 18),
+                      ))
+                ],
+              ),
             ),
           );
         });

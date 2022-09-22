@@ -6,5 +6,23 @@
     "allTasks":"All Tasks",
     "@allTasks" :{
         "description":"Title of menu bar"
+    },
+    "addTasks":"Add your tasks",
+    "@addTasks" :{
+        "description":"Title of menu bar"
+    },
+    "addButton":"Add",
+    "@addButton" :{
+        "description":"Title of menu bar"
+    },
+    "hintText":"Enter your task",
+    "@hintText" :{
+        "description":"hint text of sheet"
+    },
+    "editButton":"Add",
+    "@addButton" :{
+        "description":"Title of menu bar"
     }
+    
+
 }

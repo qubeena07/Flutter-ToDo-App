@@ -22,4 +22,9 @@ class TodoProvider extends ChangeNotifier {
     // _listItems.removeAt(index);
     notifyListeners();
   }
+
+  void editTodo(int key, String task) {
+    myBox.put(key, task);
+    notifyListeners();
+  }
 }
