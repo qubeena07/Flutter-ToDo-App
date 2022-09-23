@@ -35,10 +35,6 @@ class MyApp extends StatelessWidget {
     final localeProvider = Provider.of<LocaleProvider>(context);
     return MaterialApp(
       supportedLocales: L10n.all,
-      // const [
-      //   Locale('en'),
-      //   Locale('ne'),
-      // ],
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

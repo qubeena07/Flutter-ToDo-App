@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/provider/theme_provider.dart';
 import 'package:todo_app/provider/todo_provider.dart';
 import 'package:todo_app/utils/validation_mixin.dart';
 import 'package:todo_app/widget/language_picker_widget.dart';
@@ -47,17 +48,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themep = Provider.of<ThemeProvider>(context, listen: true).isDarkMode;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.allTasks,
-          style: const TextStyle(
+          style: TextStyle(
+              color: themep ? Colors.white : Colors.black,
               //color: (text == 'DarkTheme') ? Colors.white : Colors.black,
               fontWeight: FontWeight.normal,
               fontSize: 25),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
+        // const Color.fromARGB(255, 25, 145, 242),
         elevation: 0.0,
         leading: IconButton(
             onPressed: () {},
@@ -149,8 +153,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.addTasks,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(
                     height: 20,
@@ -192,8 +198,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             controller.clear();
                           });
                         } else {
-                          print("please enter task");
-
                           return;
                         }
                       },
