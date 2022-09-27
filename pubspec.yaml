@@ -46,9 +46,13 @@ dependencies:
   intl: ^0.17.0
   toast_flutter: ^0.0.1
   fluttertoast: ^8.0.9
+  
+  
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to

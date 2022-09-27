@@ -153,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.addTasks,
+                    key: const Key("addYourTasks"),
                     style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,
@@ -162,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 20,
                   ),
                   TextFormField(
-                    key: const Key("taskDetails"),
+                    key: const Key("taskDetails1"),
                     controller: controller,
                     validator: (value) =>
                         ValidationMixin().validateTask(value!),
