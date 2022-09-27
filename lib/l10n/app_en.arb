@@ -19,7 +19,7 @@
     "@hintText" :{
         "description":"hint text of sheet"
     },
-    "editButton":"Add",
+    "editButton":"Edit",
     "@addButton" :{
         "description":"Title of menu bar"
     }

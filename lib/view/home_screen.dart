@@ -203,8 +203,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                       },
                       child: Text(
-                        isEdit ? "Edit" : "Add",
-                        // AppLocalizations.of(context)!.addButton,
+                        isEdit
+                            ? AppLocalizations.of(context)!.editButton
+                            : AppLocalizations.of(context)!.addButton,
                         style: const TextStyle(fontSize: 18),
                       ))
                 ],
