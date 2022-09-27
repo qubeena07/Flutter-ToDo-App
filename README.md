@@ -1,8 +1,6 @@
 # Screenshots of ToDo App
-
-![Screenshot_1664263454](https://user-images.githubusercontent.com/59753519/192461982-96b1ac53-22b3-41da-b410-1e12bb8be7d9.png)
-
-![Screenshot_1664263449](https://user-images.githubusercontent.com/59753519/192462003-5ef6cca6-6a83-4854-b94f-cb22acf469e5.png)
-![Screenshot_1664263458](https://user-images.githubusercontent.com/59753519/192462026-06ff36b1-444f-4d24-a6c0-fe22acd22cfa.png)
-![Screenshot_1664263532](https://user-images.githubusercontent.com/59753519/192462048-49b15d32-62e0-4193-bde5-ee86ff284610.png)
-![Screenshot_1664263678](https://user-images.githubusercontent.com/59753519/192462061-80bd2ad4-b561-4c54-8b17-00a3fdd8841e.png)
+![Screenshot_1664263449](https://user-images.githubusercontent.com/59753519/192462214-5b4dd137-41b4-4b01-9c52-cd647cb7e6bc.png)
+![Screenshot_1664263454](https://user-images.githubusercontent.com/59753519/192462224-6210bbdc-a32d-4e5e-8560-f73684af94a6.png)
+![Screenshot_1664263458](https://user-images.githubusercontent.com/59753519/192462237-0b6a30a3-17ad-4e81-85cd-ff57f21e36e7.png)
+![Screenshot_1664263532](https://user-images.githubusercontent.com/59753519/192462259-221017db-4e5c-434c-b1a0-1d8a6d67a93a.png)
+![Screenshot_1664263678](https://user-images.githubusercontent.com/59753519/192462279-fc197646-bae6-47f9-8581-ffadb71e7d39.png)
